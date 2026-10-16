@@ -1,0 +1,30 @@
+{
+  "artifact_type": "sanitized_evidence_summary",
+  "phase": "H1C9_MULTI_WITNESS_FINALITY_SCOUT",
+  "target_hours": 12,
+  "witness_offsets_seconds": [300, 600, 900, 1200, 1500, 1800, 2100, 2400, 2700, 3000, 3300],
+  "aggregate": {
+    "300": {
+      "hours": 12,
+      "ohlc_stable": 11,
+      "decision_parity": 12,
+      "volume_exact": 8,
+      "future_input_violations": 0
+    },
+    "600": {
+      "hours": 12,
+      "ohlc_stable": 12,
+      "decision_parity": 12,
+      "volume_exact": 12,
+      "future_input_violations": 0
+    }
+  },
+  "earliest_candidate_offset_seconds": 600,
+  "classification": "MULTI_WITNESS_CANDIDATE_FOUND",
+  "alignment_frozen_in_this_phase": false,
+  "live_execution_ready": false,
+  "transaction_authorization": false,
+  "counted_cycle": false,
+  "exactness": "7/8",
+  "claim_boundary": "The summary supports witness selection only; it is not realized execution evidence or a profitability claim."
+}

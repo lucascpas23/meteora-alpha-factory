@@ -1,0 +1,31 @@
+{
+  "artifact_type": "sanitized_evidence_summary",
+  "phase": "H1C11_TPLUS600_FRESH_FORWARD_RECORDER",
+  "run_id": "h1c10_8909635dd669f3ef3d9b",
+  "alignment_id": "T_PLUS_600_WITNESS_V1",
+  "witness_offset_seconds": 600,
+  "historical_preflight": "6/6",
+  "realtime_hours": 12,
+  "realtime_decision_parity_pass": 12,
+  "row_t_ohlc_stable_after_witness_pass": 12,
+  "volume_exact_after_witness_pass": 12,
+  "future_input_violations": 0,
+  "decision_delay_from_hour_seconds": {
+    "min": 602.000007390976,
+    "median": 602.9158617258072,
+    "max": 605.0583567619324
+  },
+  "witness_availability_lag_seconds": {
+    "min": 2.000007390975952,
+    "median": 2.91586172580719,
+    "max": 5.058356761932373
+  },
+  "classification": "FRESH_FORWARD_TPLUS600_WITNESS_12H_PASS",
+  "live_finality_validation": "PASS",
+  "fresh_forward_pnl_opened": false,
+  "live_execution_ready": false,
+  "transaction_authorization": false,
+  "counted_cycle": false,
+  "exactness": "7/8",
+  "claim_boundary": "The summary validates causal finality under the frozen protocol. Realized execution-cost exactness remains pending."
+}
