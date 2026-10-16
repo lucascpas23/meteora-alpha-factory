@@ -54,6 +54,20 @@ This repository is the sanitized public surface for:
 
 Strategy-specific alpha thresholds, private pool-selection logic, custody procedures, API secrets and private keys are intentionally excluded.
 
+## Public tooling v0.1
+
+The repository now includes a minimal reproducibility layer that can be run without strategy secrets or live infrastructure:
+
+```bash
+python -m pip install -r requirements-dev.txt
+python tools/verify_evidence.py --repo-root . --strict
+python -m unittest discover -s tests -v
+```
+
+The validator checks the public JSON Schema, cross-field causal-evidence invariants and SHA-256 integrity for the sanitized evidence files. GitHub Actions runs the same checks on pushes and pull requests. See [Public tooling](docs/PUBLIC_TOOLING.md).
+
+No proprietary alpha threshold, pool-selection logic, custody material, signing logic or private key is included.
+
 ## Evidence snapshots
 
 - [Multi-witness finality study](evidence/H1C9_MULTI_WITNESS_SUMMARY.json)
