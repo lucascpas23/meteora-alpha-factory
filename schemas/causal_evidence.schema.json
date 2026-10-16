@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/lucascpas23/meteora-alpha-factory/schemas/causal_evidence.schema.json",
+  "title": "Meteora Alpha Factory sanitized causal evidence",
+  "description": "Public schema for sanitized causal-finality evidence. It intentionally excludes strategy-specific alpha thresholds, custody material, API secrets, private keys, and live transaction instructions.",
+  "oneOf": [
+    { "$ref": "#/$defs/h1c9" },
+    { "$ref": "#/$defs/h1c11" }
+  ],
+  "$defs": {
+    "passCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "nonNegativeNumber": {
+      "type": "number",
+      "minimum": 0
+    },
+    "exactness": {
+      "type": "string",
+      "pattern": "^[0-9]+/[0-9]+$"
+    },
+    "claimBoundary": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 1000
+    },
+    "aggregateWitness": {
+      "type": "object",
+      "required": [
+        "hours",
+        "ohlc_stable",
+        "decision_parity",
+        "volume_exact",
+        "future_input_violations"
+      ],
+      "properties": {
+        "hours": { "$ref": "#/$defs/passCount" },
+        "ohlc_stable": { "$ref": "#/$defs/passCount" },
+        "decision_parity": { "$ref": "#/$defs/passCount" },
+        "volume_exact": { "$ref": "#/$defs/passCount" },
+        "future_input_violations": { "$ref": "#/$defs/passCount" }
+      },
+      "additionalProperties": false
+    },
+    "h1c9": {
+      "type": "object",
+      "required": [
+        "artifact_type",
+        "phase",
+        "target_hours",
+        "witness_offsets_seconds",
+        "aggregate",
+        "earliest_candidate_offset_seconds",
+        "classification",
+        "alignment_frozen_in_this_phase",
+        "live_execution_ready",
+        "transaction_authorization",
+        "counted_cycle",
+        "exactness",
+        "claim_boundary"
+      ],
+      "properties": {
+        "artifact_type": { "const": "sanitized_evidence_summary" },
+        "phase": { "const": "H1C9_MULTI_WITNESS_FINALITY_SCOUT" },
+        "target_hours": { "type": "integer", "minimum": 1 },
+        "witness_offsets_seconds": {
+          "type": "array",
+          "minItems": 2,
+          "uniqueItems": true,
+          "items": { "type": "integer", "minimum": 1 }
+        },
+        "aggregate": {
+          "type": "object",
+          "minProperties": 2,
+          "patternProperties": {
+            "^[0-9]+$": { "$ref": "#/$defs/aggregateWitness" }
+          },
+          "additionalProperties": false
+        },
+        "earliest_candidate_offset_seconds": { "type": "integer", "minimum": 1 },
+        "classification": { "const": "MULTI_WITNESS_CANDIDATE_FOUND" },
+        "alignment_frozen_in_this_phase": { "const": false },
+        "live_execution_ready": { "const": false },
+        "transaction_authorization": { "const": false },
+        "counted_cycle": { "const": false },
+        "exactness": { "$ref": "#/$defs/exactness" },
+        "claim_boundary": { "$ref": "#/$defs/claimBoundary" }
+      },
+      "additionalProperties": false
+    },
+    "latencySummary": {
+      "type": "object",
+      "required": ["min", "median", "max"],
+      "properties": {
+        "min": { "$ref": "#/$defs/nonNegativeNumber" },
+        "median": { "$ref": "#/$defs/nonNegativeNumber" },
+        "max": { "$ref": "#/$defs/nonNegativeNumber" }
+      },
+      "additionalProperties": false
+    },
+    "h1c11": {
+      "type": "object",
+      "required": [
+        "artifact_type",
+        "phase",
+        "run_id",
+        "alignment_id",
+        "witness_offset_seconds",
+        "historical_preflight",
+        "realtime_hours",
+        "realtime_decision_parity_pass",
+        "row_t_ohlc_stable_after_witness_pass",
+        "volume_exact_after_witness_pass",
+        "future_input_violations",
+        "decision_delay_from_hour_seconds",
+        "witness_availability_lag_seconds",
+        "classification",
+        "live_finality_validation",
+        "fresh_forward_pnl_opened",
+        "live_execution_ready",
+        "transaction_authorization",
+        "counted_cycle",
+        "exactness",
+        "claim_boundary"
+      ],
+      "properties": {
+        "artifact_type": { "const": "sanitized_evidence_summary" },
+        "phase": { "const": "H1C11_TPLUS600_FRESH_FORWARD_RECORDER" },
+        "run_id": { "type": "string", "minLength": 8, "maxLength": 128 },
+        "alignment_id": { "const": "T_PLUS_600_WITNESS_V1" },
+        "witness_offset_seconds": { "const": 600 },
+        "historical_preflight": { "type": "string", "pattern": "^[0-9]+/[0-9]+$" },
+        "realtime_hours": { "type": "integer", "minimum": 1 },
+        "realtime_decision_parity_pass": { "$ref": "#/$defs/passCount" },
+        "row_t_ohlc_stable_after_witness_pass": { "$ref": "#/$defs/passCount" },
+        "volume_exact_after_witness_pass": { "$ref": "#/$defs/passCount" },
+        "future_input_violations": { "$ref": "#/$defs/passCount" },
+        "decision_delay_from_hour_seconds": { "$ref": "#/$defs/latencySummary" },
+        "witness_availability_lag_seconds": { "$ref": "#/$defs/latencySummary" },
+        "classification": { "const": "FRESH_FORWARD_TPLUS600_WITNESS_12H_PASS" },
+        "live_finality_validation": { "const": "PASS" },
+        "fresh_forward_pnl_opened": { "const": false },
+        "live_execution_ready": { "const": false },
+        "transaction_authorization": { "const": false },
+        "counted_cycle": { "const": false },
+        "exactness": { "$ref": "#/$defs/exactness" },
+        "claim_boundary": { "$ref": "#/$defs/claimBoundary" }
+      },
+      "additionalProperties": false
+    }
+  }
+}
